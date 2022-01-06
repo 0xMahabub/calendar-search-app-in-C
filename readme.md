@@ -1,6 +1,14 @@
 # Project: Calendar Search App
 
+
 ```javascript
+    var requirements = {
+        programming_language: "C",
+        compiler: "GCC-MingW-x86_x64 supports",
+        machine: "Windows x86_x64 or compatible"
+    };
+
+
     var info = {
         projectInfo = {
             projectName: "Calendar Search App",
