@@ -10,7 +10,10 @@
                 "Flexible menu routing",
                 "Search calendar of any year",
                 "Consumer friendly results in table-UI"
-            ]
+            ],
+            courseType: "LAB",
+            courseName: "Structural Programming LAB",
+            courseCode: "CSE104"
         },
         authorInfo = {
             authorName: "Md Mahabub Alam",
@@ -18,9 +21,6 @@
             batch: 212,
             section: "DA",
             department: "CSE",
-            courseType: "LAB",
-            courseName: "Structural Programming LAB",
-            courseCode: "CSE104"
         }
     };
 ```
