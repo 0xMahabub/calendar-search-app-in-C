@@ -9,6 +9,14 @@ int checkLeapYear(int year) {
         return 0;
 }
 
+int getYearFirstDay(int year) {
+    int day;
+    // a formula for getting the starting day of year
+    // according to this serial: Sunday => 0, Monday => 1 ...
+    day = (year*365 + ((year-1)/4) - ((year-1)/100) + ((year-1)/400)) % 7;
+    return day;
+}
+
 void processCalendar() {
     int year, isLeapYear, i, monthDays, j, weekDays=0, spaceCount=0;
     char *months[] = {
@@ -33,6 +41,7 @@ void processCalendar() {
     scanf("%d", &year);
     printf("\n<================ Welcome to %d ================>\n", year);
     
+    weekDays = getYearFirstDay(year);
     for (i=0; i<monthsCount; i++) {
         printf("\n===================== %s =====================\n", *(months+i));
         printf("\n   Sun   Mon   Tue   Wed   Thu   Fri   Sat\n\n");
@@ -59,11 +68,7 @@ void processCalendar() {
 }
 
 
-void appMenu(char task) {
-    if (task == 'P') {
-        system("cls");
-        processCalendar();  //re-calling or re-routing
-    }
+void appMenu() {
 
     char userInput;
 
@@ -115,7 +120,7 @@ void main() {
      */
 
     /// App process starts here
-    appMenu('\n');  // taking user-input through the main_menu
+    appMenu();  // taking user-input through the main_menu
 
 
 }
