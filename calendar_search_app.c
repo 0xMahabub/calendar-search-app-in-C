@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#define monthCount 12
+#define monthsCount 12
 
 int checkLeapYear(int year) {
     if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0))
@@ -10,7 +10,7 @@ int checkLeapYear(int year) {
 }
 
 void processCalendar() {
-    int year;
+    int year, isLeapYear, i, monthDays, j, weekDays=0, spaceCount=0;
     char *months[] = {
         "January", "February", "March", "April", "May", "June",
         "July", "August", "September", "October", "November",
@@ -20,49 +20,51 @@ void processCalendar() {
         31, 28, 31, 30, 31, 30, 31, 30, 31, 30, 31, 30
     };  // by defalut February is 28, but for leap-year it is 29
 
-    system("cls");
-    printf("\n===============================================\n");
-    printf("\t<=== Calendar Search App ===>\n");
-    printf("===============================================\n");
-
-    printf("\tEnter the year: ");
-    scanf("%d", &year);
     // check leap year
-    int isLeapYear; 
     isLeapYear = checkLeapYear(year); // 1 or 0
-
     if (isLeapYear == 1)
         daysInMonth[1] = 29;    // leap-year=FEB=29 days
 
-    printf("\n%d year is LY: %d\n", year, isLeapYear);
-    printf("===============================================\n");
-
-    printf("Menu: ==================>");
-    printf("\nA. Search Again\n");
-    printf("\nB. Back to Main Menu\n");
+    //system("cls");
+    printf("\n===============================================\n");
+    printf("\t<=== Calendar Search App ===>\n");
     
-    while (1) {
-        char ch;
-        scanf("%c", &ch);
-        if (ch == 'A') {
-            processCalendar();  // recursioning
-            break;
+    printf("\tEnter the year: ");
+    scanf("%d", &year);
+    printf("\n<================ Welcome to %d ================>\n", year);
+    
+    for (i=0; i<monthsCount; i++) {
+        printf("\n===================== %s =====================\n", *(months+i));
+        printf("\n   Sun   Mon   Tue   Wed   Thu   Fri   Sat\n\n");
+        monthDays = *(daysInMonth+i);
+
+        for (spaceCount = 1; spaceCount <= weekDays; spaceCount++) {
+            printf("      "); //6 space
         }
-        else if (ch == 'B') {
-            appMenu();  // back to main-menu
-            break;
-        }
-        else {
-            printf("\nError: Invalid input");
-            system("cls");
-            processCalendar(); // recursioning
-            break;
+        for (j=1; j<monthDays; j++) {
+            printf("%6d", j);
+            weekDays++;
+            if (weekDays > 6) {
+                weekDays = 0;   // reset
+                printf("\n");   // new line
+            }
         }
     }
+    
+
+    //printf("\n%d year is LY: %d\n", year, isLeapYear);
+
+
+    printf("\n===============================================\n");
 }
 
 
-void appMenu() {
+void appMenu(char task) {
+    if (task == 'P') {
+        system("cls");
+        processCalendar();  //re-calling or re-routing
+    }
+
     char userInput;
 
     printf("\n===============================================\n");
@@ -79,12 +81,13 @@ void appMenu() {
         
         if (userInput == 'A') {
             // calendar menu works
+            system("cls");
             processCalendar();
             break;
         }
         else if (userInput == 'Q') {
             // quit this app
-            // system("cls");
+            //system("cls");
             exit(0);
             break;
         }
@@ -93,6 +96,10 @@ void appMenu() {
             //appMenu();  // recursion used here
             system("cls");
             printf("Error: Invaild menu option passed\n");
+            printf("\t=============================================\n");
+            printf("\tEnter an option given below: \n");
+            printf("\tA. Search a calendar\n");
+            printf("\tQ. Quit / Exit\n");
             continue;
         }
     }
@@ -108,7 +115,7 @@ void main() {
      */
 
     /// App process starts here
-    appMenu();  // taking user-input through the main_menu
+    appMenu('\n');  // taking user-input through the main_menu
 
 
 }
