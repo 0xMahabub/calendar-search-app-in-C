@@ -1,0 +1,7 @@
+*.exe
+*.ini
+.DS_Store
+.cache
+.tmp
+.o
+tempCodeRunnerFile.c
