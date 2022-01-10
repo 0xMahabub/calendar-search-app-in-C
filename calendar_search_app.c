@@ -11,6 +11,12 @@ struct eventInfo {
     char eventDate[11]; // ex. "01-02-2022" :: string[11]
 };
 
+// struct getDateInfo {
+//     int day;
+//     int month;
+//     int year;
+// };
+
 int checkLeapYear(int year) {
     if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0))
         return 1;
@@ -43,6 +49,21 @@ void processCalendar() {
         daysInMonth[1] = 29;    // leap-year=FEB=29 days
 
     //system("cls");
+    // int hasEvent = 0;
+    // FILE *dataFile;
+    // dataFile = fopen("data.txt", "r");
+    // if (dataFile != NULL)
+    //     hasEvent = 1;
+    
+
+    // if (hasEvent) {
+    //     struct getDateInfo parsedDate;
+    //     char tmp[100];
+    //     tmp = 
+    // }
+
+
+
     printf("\n===============================================\n");
     printf("\t<=== Calendar Search App ===>\n");
     
@@ -103,7 +124,7 @@ void addEvent() {
     // fwrite(&newEvent, sizeof(struct eventInfo), 1, dataFile); // not worked
     fprintf(dataFile, "%s\t%s\t%s\n", newEvent.eventTitle, newEvent.eventLocation, newEvent.eventDate);
 
-    if (fwrite != 0) {
+    if (fprintf != 0) {
         // successfully written the data as record
         printf("\n\t..........Event added successfully!");
         getch();
@@ -170,7 +191,7 @@ void main() {
 
     /// opening file for data stores @Events
     FILE *dataFile;
-    dataFile = fopen("data.txt", "w");  // with file write-mode
+    dataFile = fopen("data.txt", "w+");  // with file write-mode
     if (dataFile == NULL) {
         fprintf(stderr, "\nError: File couldn't be opened");
         exit(1);    // exit status 1: True
