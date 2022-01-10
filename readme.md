@@ -17,6 +17,7 @@
                 "Browasble menu-UI",
                 "Flexible menu routing",
                 "Search calendar of any year",
+                "Add Event and save it",
                 "Consumer friendly results in table-UI"
             ],
             courseType: "LAB",
