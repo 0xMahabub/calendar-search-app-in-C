@@ -1,6 +1,15 @@
 #include <stdio.h>
+#include <string.h>
 #include <stdlib.h>
 #define monthsCount 12
+
+/// using struct for event info
+struct eventInfo {
+    //int id;
+    char eventTitle[20];
+    char eventLocation[20];
+    char eventDate[11]; // ex. "01-02-2022" :: string[11]
+};
 
 int checkLeapYear(int year) {
     if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0))
@@ -68,19 +77,62 @@ void processCalendar() {
 }
 
 
+void addEvent() {
+    FILE *dataFile;
+    dataFile = fopen("data.txt", "a");  // with file append-mode
+
+    struct eventInfo newEvent;
+
+    printf("\n=============================================\n");
+    printf("\t<========== Add An Event =========>\n");
+    printf("===============================================\n");
+    printf("\tEnter event-title: ");
+    fflush(stdin);
+    gets(newEvent.eventTitle);
+    // scanf ("%[^\n]%*c", &newEvent.eventTitle);
+    printf("\n\tEnter event-location: ");
+    fflush(stdin);
+    gets(newEvent.eventLocation);
+    // scanf ("%[^\n]%*c", &newEvent.eventLocation);
+    printf("\n\tEnter event-date: ");
+    fflush(stdin);
+    gets(newEvent.eventDate);
+    // scanf ("%[^\n]%*c", &newEvent.eventDate);
+
+    // write this record
+    // fwrite(&newEvent, sizeof(struct eventInfo), 1, dataFile); // not worked
+    fprintf(dataFile, "%s\t%s\t%s\n", newEvent.eventTitle, newEvent.eventLocation, newEvent.eventDate);
+
+    if (fwrite != 0) {
+        // successfully written the data as record
+        printf("\n\t..........Event added successfully!");
+        getch();
+    }
+    else {
+        printf("\n\tError: record couldn't be added.");
+        getch();
+    }
+
+    fclose(dataFile);   // closing file end of this process
+}
+
+
 void appMenu() {
 
     char userInput;
 
-    printf("\n===============================================\n");
-    printf("\t<=== Calendar Search App ===>\n");
-    printf("===============================================\n");
-    printf("\tEnter an option given below: \n");
-    printf("\tA. Search a calendar\n");
-    printf("\tQ. Quit / Exit\n");
-    printf("\t=============================================\n");
+    
     
     while (1) {
+        system("cls");
+        printf("\n===============================================\n");
+        printf("\t<=== Calendar Search App ===>\n");
+        printf("===============================================\n");
+        printf("\tEnter an option given below: \n");
+        printf("\tA. Search a calendar\n");
+        printf("\tB. Add an event\n");
+        printf("\tQ. Quit / Exit\n");
+        printf("\t=============================================\n");
         printf("\tEnter your option: ");
         scanf("%c", &userInput);    // user-input as char only
         
@@ -88,24 +140,21 @@ void appMenu() {
             // calendar menu works
             system("cls");
             processCalendar();
-            break;
+            getch();
+            //break;
+        }
+        else if (userInput == 'B') {
+            // quit this app
+            system("cls");
+            addEvent(); // add event
+            // getch();
         }
         else if (userInput == 'Q') {
             // quit this app
             //system("cls");
             exit(0);
-            break;
-        }
-        else if (userInput != 'A' || userInput != 'Q') {
-            // clear screen
-            //appMenu();  // recursion used here
-            system("cls");
-            printf("Error: Invaild menu option passed\n");
-            printf("\t=============================================\n");
-            printf("\tEnter an option given below: \n");
-            printf("\tA. Search a calendar\n");
-            printf("\tQ. Quit / Exit\n");
-            continue;
+            //break;
+            getch();
         }
     }
 
@@ -118,6 +167,14 @@ void main() {
      * @Contact: +8801629235256 | ID: 212002072
      *  Dept. of CSE, Green University of Bangladesh
      */
+
+    /// opening file for data stores @Events
+    FILE *dataFile;
+    dataFile = fopen("data.txt", "w");  // with file write-mode
+    if (dataFile == NULL) {
+        fprintf(stderr, "\nError: File couldn't be opened");
+        exit(1);    // exit status 1: True
+    }
 
     /// App process starts here
     appMenu();  // taking user-input through the main_menu
